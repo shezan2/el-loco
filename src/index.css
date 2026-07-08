@@ -1,0 +1,44 @@
+@import 'tailwindcss';
+
+@theme {
+  /* El Loco palette — warm, food-forward, generous cream negative space */
+  --color-masa: #fdf6ec; /* warm cream base */
+  --color-masa-deep: #f6e9d8;
+  --color-espresso: #221510; /* warm near-black ink */
+  --color-espresso-soft: #3b2a20;
+  --color-sunset: #f4640a; /* sunset orange — primary */
+  --color-sunset-deep: #d94f00;
+  --color-chili: #ce2c1d; /* vibrant red */
+  --color-pandan: #2f7d4f; /* fresh green */
+  --color-pandan-soft: #e4efe4;
+  --color-mango: #ffb24d; /* amber accent */
+  --color-peach: #ffe8d6;
+
+  --font-display: 'Playfair Display', Georgia, serif;
+  --font-sans: 'Outfit', system-ui, sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply bg-masa text-espresso font-sans antialiased;
+}
+
+::selection {
+  background: var(--color-sunset);
+  color: var(--color-masa);
+}
+
+/* Kicker — small-caps section eyebrow used everywhere for rhythm */
+.kicker {
+  @apply text-xs font-semibold uppercase text-sunset-deep;
+  letter-spacing: 0.28em;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
