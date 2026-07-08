@@ -34,17 +34,7 @@ function Hero() {
 
   return (
     <section className="relative overflow-hidden bg-espresso text-masa">
-      {/* Flat two-tone field: espresso + a crisp awning band on the right */}
-      <div
-        aria-hidden="true"
-        className="absolute inset-y-0 right-0 hidden w-16 items-center justify-center bg-sunset sm:flex lg:w-24"
-      >
-        <p className="vtext text-[0.65rem] font-semibold uppercase tracking-[0.34em] text-espresso">
-          Wholesale &amp; Retail — Sembawang, Singapore — Est. 2021
-        </p>
-      </div>
-
-      <div className="relative z-10 mx-auto flex min-h-svh w-full max-w-[88rem] flex-col justify-end px-6 pb-14 sm:px-10 sm:pr-28 sm:pb-16 lg:pr-40">
+      <div className="relative z-10 mx-auto flex min-h-svh w-full max-w-[88rem] flex-col justify-end px-6 pb-14 sm:px-10 sm:pb-16">
         <motion.p className="kicker-light mb-8" {...fade(0.1)}>
           Wholesale &amp; Retail — Sembawang, Singapore
         </motion.p>
