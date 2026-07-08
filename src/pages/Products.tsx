@@ -1,18 +1,11 @@
 import { useMemo } from 'react'
-import { Link, useSearchParams } from 'react-router-dom'
+import { useSearchParams } from 'react-router-dom'
 import { motion, AnimatePresence } from 'motion/react'
-import DotGrid from '../components/reactbits/DotGrid'
-import GradientText from '../components/reactbits/GradientText'
-import TiltedCard from '../components/reactbits/TiltedCard'
-import ShinyText from '../components/reactbits/ShinyText'
-import { CATEGORIES, PHONE_DISPLAY, PHONE_TEL, PRODUCTS, type Accent } from '../data/products'
+import SplitText from '../components/reactbits/SplitText'
+import Magnetic from '../components/Magnetic'
+import { CATEGORIES, PHONE_DISPLAY, PHONE_TEL, PRODUCTS } from '../data/products'
 
-const ACCENT_CHIP: Record<Accent, string> = {
-  sunset: 'bg-sunset',
-  chili: 'bg-chili',
-  mango: 'bg-mango',
-  pandan: 'bg-pandan',
-}
+const EASE = [0.22, 1, 0.36, 1] as const
 
 export default function Products() {
   const [params, setParams] = useSearchParams()
@@ -30,108 +23,101 @@ export default function Products() {
 
   return (
     <>
-      {/* Header band with React Bits DotGrid */}
-      <section className="relative overflow-hidden bg-espresso pt-36 pb-20 text-masa">
-        <div className="absolute inset-0 opacity-60">
-          <DotGrid
-            dotSize={4}
-            gap={26}
-            baseColor="#3b2a20"
-            activeColor="#f4640a"
-            proximity={130}
-            shockRadius={220}
-          />
-        </div>
-        <div className="pointer-events-none relative z-10 mx-auto max-w-6xl px-5 sm:px-8">
-          <p className="kicker mb-4 !text-mango">The Full Catalog</p>
-          <h1 className="font-display text-5xl font-bold leading-tight sm:text-6xl">
-            Every product,{' '}
-            <GradientText
-              colors={['#f4640a', '#ffb24d', '#ce2c1d', '#ffb24d', '#f4640a']}
-              animationSpeed={5}
-              className="font-display font-bold italic"
-            >
-              every flavor.
-            </GradientText>
-          </h1>
-          <p className="mt-5 max-w-xl text-lg font-light leading-relaxed text-masa/70">
-            Browse the shelves, note what you want, then call{' '}
-            <a href={PHONE_TEL} className="pointer-events-auto font-semibold text-mango underline-offset-4 hover:underline">
-              {PHONE_DISPLAY}
-            </a>{' '}
-            to order. View-only catalog — the checkout is a conversation.
+      {/* Editorial header */}
+      <section className="mx-auto max-w-[88rem] px-6 pt-40 pb-14 sm:px-10">
+        <div className="flex flex-wrap items-end justify-between gap-8">
+          <div>
+            <p className="kicker mb-6">The Catalog — {PRODUCTS.length} products</p>
+            <h1 className="font-display font-bold leading-[1.02]">
+              <div className="overflow-hidden pb-[0.12em]">
+                <SplitText
+                  text="Every product,"
+                  tag="span"
+                  className="block text-6xl sm:text-8xl"
+                  splitType="chars"
+                  delay={20}
+                  duration={1}
+                  ease="power4.out"
+                  from={{ opacity: 0, y: 90 }}
+                  to={{ opacity: 1, y: 0 }}
+                  textAlign="left"
+                />
+              </div>
+              <div className="overflow-hidden pb-[0.12em]">
+                <SplitText
+                  text="every flavor."
+                  tag="span"
+                  className="block text-6xl italic text-sunset sm:text-8xl"
+                  splitType="chars"
+                  delay={20}
+                  duration={1}
+                  ease="power4.out"
+                  from={{ opacity: 0, y: 90 }}
+                  to={{ opacity: 1, y: 0 }}
+                  textAlign="left"
+                />
+              </div>
+            </h1>
+          </div>
+          <p className="max-w-xs pb-2 text-sm font-light leading-relaxed text-espresso-soft/70">
+            A view-only catalog — the checkout is a conversation. Note what you like, then call{' '}
+            <a href={PHONE_TEL} className="link-line font-semibold text-espresso">{PHONE_DISPLAY}</a>.
           </p>
         </div>
-      </section>
 
-      <section className="mx-auto max-w-6xl px-5 py-16 sm:px-8">
-        {/* Category filter */}
-        <div className="mb-12 flex flex-wrap gap-3">
-          <button
-            onClick={() => setCategory('all')}
-            className={`rounded-full px-5 py-2.5 text-sm font-semibold transition-all ${
-              active === 'all'
-                ? 'bg-espresso text-masa shadow-lg'
-                : 'border border-espresso/15 bg-white/60 hover:border-espresso/40'
-            }`}
-          >
-            All ({PRODUCTS.length})
-          </button>
-          {CATEGORIES.map(c => {
-            const count = PRODUCTS.filter(p => p.categoryId === c.id).length
+        {/* Filter rail */}
+        <div className="hairline mt-14 flex flex-wrap gap-x-9 gap-y-4 border-t pt-6">
+          {[{ id: 'all', title: 'All' }, ...CATEGORIES].map(c => {
+            const count = c.id === 'all' ? PRODUCTS.length : PRODUCTS.filter(p => p.categoryId === c.id).length
+            const isActive = active === c.id
             return (
               <button
                 key={c.id}
                 onClick={() => setCategory(c.id)}
-                className={`rounded-full px-5 py-2.5 text-sm font-semibold transition-all ${
-                  active === c.id
-                    ? `${ACCENT_CHIP[c.accent]} text-masa shadow-lg`
-                    : 'border border-espresso/15 bg-white/60 hover:border-espresso/40'
+                className={`link-line pb-1 text-[0.8rem] font-semibold uppercase tracking-[0.18em] transition-colors duration-300 ${
+                  isActive ? 'is-active text-espresso' : 'text-espresso/40 hover:text-espresso'
                 }`}
               >
-                {c.title} ({count})
+                {c.title}
+                <sup className="ml-1 text-[0.6rem] font-bold text-sunset">{count}</sup>
               </button>
             )
           })}
         </div>
+      </section>
 
-        {/* Product grid — React Bits TiltedCard imagery */}
-        <motion.div layout className="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
+      {/* Grid */}
+      <section className="mx-auto max-w-[88rem] px-6 pb-28 sm:px-10">
+        <motion.div layout className="grid grid-cols-1 gap-x-8 gap-y-16 sm:grid-cols-2 lg:grid-cols-3">
           <AnimatePresence mode="popLayout">
-            {filtered.map(p => {
+            {filtered.map((p, i) => {
               const cat = CATEGORIES.find(c => c.id === p.categoryId)!
               return (
                 <motion.article
                   key={p.name}
                   layout
-                  initial={{ opacity: 0, scale: 0.92 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.92 }}
-                  transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+                  initial={{ opacity: 0, y: 40, clipPath: 'inset(12% 0% 12% 0%)' }}
+                  animate={{ opacity: 1, y: 0, clipPath: 'inset(0% 0% 0% 0%)' }}
+                  exit={{ opacity: 0, y: -24, clipPath: 'inset(12% 0% 12% 0%)' }}
+                  transition={{ duration: 0.7, delay: (i % 3) * 0.07, ease: EASE }}
+                  className="group"
                 >
-                  <TiltedCard
-                    imageSrc={p.image}
-                    altText={p.name}
-                    containerHeight="240px"
-                    containerWidth="100%"
-                    imageHeight="240px"
-                    imageWidth="100%"
-                    rotateAmplitude={9}
-                    scaleOnHover={1.06}
-                    showMobileWarning={false}
-                    showTooltip={false}
-                    displayOverlayContent
-                    overlayContent={
-                      <span
-                        className={`m-3 inline-block rounded-full px-3 py-1 text-xs font-bold text-masa ${ACCENT_CHIP[cat.accent]}`}
-                      >
-                        {cat.title}
-                      </span>
-                    }
-                  />
-                  <div className="mt-4 px-1">
-                    <h3 className="font-display text-xl font-bold leading-snug">{p.name}</h3>
-                    <p className="mt-1.5 text-sm leading-relaxed text-espresso-soft/80">{p.note}</p>
+                  <div className="img-frame relative aspect-[4/5] bg-masa-deep">
+                    <img
+                      src={p.image}
+                      alt={p.name}
+                      loading="lazy"
+                      className="h-full w-full object-cover"
+                    />
+                  </div>
+                  <div className="hairline mt-5 flex items-baseline justify-between gap-4 border-t pt-4">
+                    <div>
+                      <h3 className="font-display text-xl font-bold leading-snug">{p.name}</h3>
+                      <p className="mt-1.5 max-w-[34ch] text-xs leading-relaxed text-espresso-soft/65">{p.note}</p>
+                    </div>
+                    <span className="kicker whitespace-nowrap">
+                      {String(i + 1).padStart(2, '0')} — {cat.title}
+                    </span>
                   </div>
                 </motion.article>
               )
@@ -139,32 +125,20 @@ export default function Products() {
           </AnimatePresence>
         </motion.div>
 
-        {/* CTA strip */}
-        <div className="mt-20 rounded-[2rem] bg-espresso px-8 py-12 text-center text-masa sm:px-14">
-          <h2 className="font-display text-3xl font-bold sm:text-4xl">
-            Spotted something you like?
-          </h2>
-          <a
-            href={PHONE_TEL}
-            className="mt-6 inline-block rounded-full bg-sunset px-9 py-4 text-lg font-bold text-masa shadow-xl shadow-sunset/30 transition-transform hover:scale-[1.04]"
-          >
-            Call us directly · {PHONE_DISPLAY}
-          </a>
-          <div className="mt-4">
-            <ShinyText
-              text="Wholesale cartons or retail packs — we do both"
-              className="text-sm"
-              color="#8a7565"
-              shineColor="#ffe8d6"
-              speed={3}
-            />
-          </div>
-          <p className="mt-6 text-sm text-masa/50">
-            Can&apos;t find what you need?{' '}
-            <Link to="/about" className="text-mango underline-offset-4 hover:underline">
-              Ask the team
-            </Link>{' '}
-            — the full range in-store is far bigger than this page.
+        {/* Editorial CTA */}
+        <div className="hairline mt-28 border-t pt-16 text-center">
+          <p className="kicker mb-6">Spotted something you like?</p>
+          <Magnetic strength={0.15}>
+            <a
+              href={PHONE_TEL}
+              className="block font-display text-[10vw] font-black tracking-tight transition-colors duration-300 hover:text-sunset sm:text-[6vw]"
+            >
+              {PHONE_DISPLAY}
+            </a>
+          </Magnetic>
+          <p className="mx-auto mt-6 max-w-md text-sm font-light leading-relaxed text-espresso-soft/70">
+            Wholesale cartons or retail packs — we do both. The in-store range is far bigger than
+            this page; if you don&apos;t see it, ask.
           </p>
         </div>
       </section>

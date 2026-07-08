@@ -1,111 +1,130 @@
-import { motion } from 'motion/react'
+import SplitText from '../components/reactbits/SplitText'
 import CountUp from '../components/reactbits/CountUp'
-import SpotlightCard from '../components/reactbits/SpotlightCard'
+import Magnetic from '../components/Magnetic'
 import { ADDRESS, EMAIL, PHONE_DISPLAY, PHONE_TEL, UEN } from '../data/products'
 
 const TEAM = [
-  { name: 'Farah Insyirah', initials: 'FI', flavor: 'Will talk your ear off about wafer rolls.', color: 'bg-sunset' },
-  { name: 'Hakim Myra', initials: 'HM', flavor: 'Firm believer that Level 10 is a starting point.', color: 'bg-pandan' },
-  { name: 'Zainab Bee Bte Bakar', initials: 'ZB', flavor: 'Knows the serunding recipe by heart.', color: 'bg-chili' },
+  { name: 'Farah Insyirah', role: 'Will talk your ear off about wafer rolls.' },
+  { name: 'Hakim Myra', role: 'Firm believer that Level 10 is a starting point.' },
+  { name: 'Zainab Bee Bte Bakar', role: 'Knows the serunding recipe by heart.' },
 ]
 
 export default function About() {
   return (
     <>
-      <section className="mx-auto max-w-6xl px-5 pt-36 pb-20 sm:px-8">
-        <div className="max-w-3xl">
-          <p className="kicker mb-4">About Us</p>
-          <h1 className="font-display text-5xl font-bold leading-tight sm:text-6xl">
-            A little loco about <em className="text-sunset">flavor.</em>
-          </h1>
-          <p className="mt-8 text-lg font-light leading-relaxed text-espresso-soft/85">
-            El Loco Enterprise Pte. Ltd. started with a simple idea: the snacks and drinks people
-            grew up loving shouldn&apos;t be hard to find — or expensive. Today we run a one-stop
-            wholesale and retail shop in Sembawang stocking hundreds of flavors across snacks,
-            beverages, condiments, health &amp; beauty and household essentials.
+      <section className="mx-auto max-w-[88rem] px-6 pt-40 pb-20 sm:px-10">
+        <p className="kicker mb-6">About Us — Est. 2021</p>
+        <h1 className="max-w-5xl font-display font-bold leading-[1.02]">
+          <div className="overflow-hidden pb-[0.12em]">
+            <SplitText
+              text="A little loco"
+              tag="span"
+              className="block text-6xl sm:text-8xl"
+              splitType="chars"
+              delay={20}
+              duration={1}
+              ease="power4.out"
+              from={{ opacity: 0, y: 90 }}
+              to={{ opacity: 1, y: 0 }}
+              textAlign="left"
+            />
+          </div>
+          <div className="overflow-hidden pb-[0.12em]">
+            <SplitText
+              text="about flavor."
+              tag="span"
+              className="block text-6xl italic text-sunset sm:text-8xl"
+              splitType="chars"
+              delay={20}
+              duration={1}
+              ease="power4.out"
+              from={{ opacity: 0, y: 90 }}
+              to={{ opacity: 1, y: 0 }}
+              textAlign="left"
+            />
+          </div>
+        </h1>
+
+        <div className="hairline mt-16 grid gap-10 border-t pt-10 lg:grid-cols-2">
+          <p className="text-xl font-light leading-relaxed text-espresso-soft/85 sm:text-2xl">
+            El Loco Enterprise started with a simple idea: the snacks and drinks people grew up
+            loving shouldn&apos;t be hard to find — or expensive.
           </p>
-          <p className="mt-4 text-lg font-light leading-relaxed text-espresso-soft/85">
-            Whether you&apos;re a shop owner buying by the carton or a family stocking the pantry,
-            you get the same thing from us: honest prices, quality products, and a phone that
-            actually gets picked up.
-          </p>
+          <div className="max-w-lg space-y-4 text-base font-light leading-relaxed text-espresso-soft/75">
+            <p>
+              Today we run a one-stop wholesale and retail shop in Sembawang stocking hundreds of
+              flavors across snacks, beverages, condiments, health &amp; beauty and household
+              essentials.
+            </p>
+            <p>
+              Whether you&apos;re a shop owner buying by the carton or a family stocking the pantry,
+              you get the same thing from us: honest prices, quality products, and a phone that
+              actually gets picked up.
+            </p>
+          </div>
         </div>
       </section>
 
-      {/* CountUp stats band */}
-      <section className="border-y border-espresso/10 bg-masa-deep py-14">
-        <div className="mx-auto grid max-w-6xl gap-10 px-5 text-center sm:grid-cols-3 sm:px-8">
+      {/* Stats rail */}
+      <section className="hairline border-t bg-masa">
+        <div className="mx-auto grid max-w-[88rem] grid-cols-3">
           {[
-            { to: 100, suffix: '+', label: 'flavors stocked' },
-            { to: 2021, suffix: '', label: 'proudly serving since', plain: true },
-            { to: 1, suffix: '', label: 'roof, all of it under' },
-          ].map(s => (
-            <div key={s.label}>
-              <p className="font-display text-5xl font-black text-sunset sm:text-6xl">
-                <CountUp to={s.to} duration={1.6} className="tabular-nums" separator={s.plain ? '' : ','} />
-                {s.suffix}
+            { to: 100, suffix: '+', label: 'Flavors stocked' },
+            { to: 2021, suffix: '', label: 'Serving since', year: true },
+            { to: 1, suffix: '', label: 'Roof, all of it under' },
+          ].map((s, i) => (
+            <div key={s.label} className={`hairline px-6 py-12 sm:px-10 ${i > 0 ? 'border-l' : ''}`}>
+              <p className="font-display text-4xl font-black tracking-tight sm:text-6xl">
+                <CountUp to={s.to} duration={1.6} className="tabular-nums" separator={s.year ? '' : ','} />
+                <span className="text-sunset">{s.suffix}</span>
               </p>
-              <p className="mt-2 text-sm font-medium uppercase tracking-[0.15em] text-espresso-soft/70">
-                {s.label}
-              </p>
+              <p className="kicker mt-3">{s.label}</p>
             </div>
           ))}
         </div>
       </section>
 
-      {/* Team */}
-      <section className="mx-auto max-w-6xl px-5 py-20 sm:px-8">
-        <p className="kicker mb-4">The Team</p>
-        <h2 className="font-display text-4xl font-bold sm:text-5xl">
-          The people behind <em className="text-sunset">the shelves.</em>
-        </h2>
-        <div className="mt-12 grid gap-6 sm:grid-cols-3">
-          {TEAM.map((member, i) => (
-            <motion.div
-              key={member.name}
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-60px' }}
-              transition={{ duration: 0.6, delay: i * 0.12, ease: [0.22, 1, 0.36, 1] }}
+      {/* Team — editorial rows */}
+      <section className="mx-auto max-w-[88rem] px-6 py-24 sm:px-10">
+        <p className="kicker mb-10">The people behind the shelves</p>
+        <div>
+          {TEAM.map((m, i) => (
+            <div
+              key={m.name}
+              className="hairline group grid grid-cols-[auto_1fr] items-baseline gap-6 border-t py-8 transition-colors duration-500 hover:bg-espresso/[0.03] sm:grid-cols-[8rem_1fr_1fr] sm:gap-10"
             >
-              <SpotlightCard
-                spotlightColor="rgba(244, 100, 10, 0.12)"
-                className="h-full rounded-3xl border border-espresso/8 bg-white/70 p-8 text-center shadow-sm"
-              >
-                <div
-                  className={`mx-auto flex h-20 w-20 items-center justify-center rounded-full font-display text-2xl font-bold text-masa ${member.color}`}
-                >
-                  {member.initials}
-                </div>
-                <h3 className="mt-5 font-display text-xl font-bold">{member.name}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-espresso-soft/75">{member.flavor}</p>
-              </SpotlightCard>
-            </motion.div>
+              <span className="font-display text-2xl font-bold italic text-espresso/25 transition-colors duration-500 group-hover:text-sunset sm:text-3xl">
+                {String(i + 1).padStart(2, '0')}
+              </span>
+              <h3 className="font-display text-2xl font-bold sm:text-4xl">{m.name}</h3>
+              <p className="col-span-2 max-w-md text-sm font-light leading-relaxed text-espresso-soft/65 sm:col-span-1 sm:text-base">
+                {m.role}
+              </p>
+            </div>
           ))}
         </div>
       </section>
 
-      {/* Visit / contact block */}
-      <section className="mx-auto max-w-6xl px-5 pb-24 sm:px-8">
-        <div className="rounded-[2rem] bg-espresso px-8 py-12 text-masa sm:px-14">
-          <div className="grid gap-10 sm:grid-cols-2">
-            <div>
-              <p className="kicker mb-3 !text-mango">Come say hi</p>
-              <h2 className="font-display text-3xl font-bold">Visit the shop</h2>
-              <p className="mt-4 leading-relaxed text-masa/70">{ADDRESS}</p>
-              <p className="mt-2 text-sm text-masa/50">UEN: {UEN}</p>
-            </div>
-            <div className="flex flex-col items-start justify-center gap-3">
+      {/* Visit */}
+      <section className="hairline mx-auto max-w-[88rem] border-t px-6 py-20 sm:px-10">
+        <div className="grid gap-12 lg:grid-cols-2">
+          <div>
+            <p className="kicker mb-5">Come say hi</p>
+            <p className="max-w-md font-display text-3xl font-bold leading-snug sm:text-4xl">{ADDRESS}</p>
+            <p className="kicker mt-5">UEN {UEN}</p>
+          </div>
+          <div className="flex flex-col items-start justify-center gap-4">
+            <Magnetic strength={0.15}>
               <a
                 href={PHONE_TEL}
-                className="rounded-full bg-sunset px-8 py-4 text-lg font-bold text-masa shadow-xl shadow-sunset/30 transition-transform hover:scale-[1.04]"
+                className="block font-display text-5xl font-black tracking-tight transition-colors duration-300 hover:text-sunset sm:text-6xl"
               >
                 {PHONE_DISPLAY}
               </a>
-              <a href={`mailto:${EMAIL}`} className="px-2 text-masa/70 transition-colors hover:text-mango">
-                {EMAIL}
-              </a>
-            </div>
+            </Magnetic>
+            <a href={`mailto:${EMAIL}`} className="link-line text-base text-espresso-soft/75">
+              {EMAIL}
+            </a>
           </div>
         </div>
       </section>
