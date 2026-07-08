@@ -1,45 +1,45 @@
 import { Link } from 'react-router-dom'
-import { ADDRESS, EMAIL, PHONE_DISPLAY, PHONE_TEL, UEN } from '../data/products'
+import { ADDRESS, EMAIL, MAPS_URL, PHONE_DISPLAY, PHONE_TEL, UEN, WHATSAPP } from '../data/products'
 
 export default function Footer() {
   return (
-    <footer className="bg-espresso pt-16 pb-10 text-masa">
-      <div className="mx-auto max-w-6xl px-5 sm:px-8">
-        <div className="grid gap-10 border-b border-masa/10 pb-12 sm:grid-cols-4">
-          <div className="sm:col-span-2">
-            <p className="font-display text-3xl font-bold italic">El Loco</p>
-            <p className="mt-1 text-xs font-medium uppercase tracking-[0.2em] text-mango">
-              Enterprise Pte. Ltd.
-            </p>
-            <p className="mt-4 max-w-xs text-sm leading-relaxed text-masa/60">
-              Hundreds of flavors under one roof — wholesale &amp; retail, Singapore.
-            </p>
-          </div>
+    <footer className="border-t border-ink/10 bg-cream-deep/60">
+      <div className="mx-auto grid max-w-6xl gap-10 px-5 py-12 sm:grid-cols-3 sm:px-8">
+        <div>
+          <p className="text-lg font-extrabold tracking-tight">El Loco Enterprise</p>
+          <p className="mt-2 max-w-xs text-sm leading-relaxed text-ink-soft">
+            Wholesale and retail snacks, drinks and pantry goods in Sembawang, Singapore.
+          </p>
+          <p className="mt-3 text-xs text-ink-soft/70">UEN {UEN}</p>
+        </div>
 
-          <div className="text-sm leading-relaxed text-masa/70">
-            <p className="kicker mb-3 !text-mango">Explore</p>
-            <Link to="/" className="block py-0.5 transition-colors hover:text-mango">Home</Link>
-            <Link to="/products" className="block py-0.5 transition-colors hover:text-mango">Products</Link>
-            <Link to="/about" className="block py-0.5 transition-colors hover:text-mango">About Us</Link>
-          </div>
-
-          <div className="text-sm leading-relaxed">
-            <p className="kicker mb-3 !text-mango">Talk to Us</p>
-            <a href={PHONE_TEL} className="block font-semibold text-sunset transition-colors hover:text-mango">
-              {PHONE_DISPLAY}
-            </a>
-            <a href={`mailto:${EMAIL}`} className="mt-2 block text-masa/70 transition-colors hover:text-mango">
-              {EMAIL}
-            </a>
-            <p className="mt-3 text-masa/50">{ADDRESS}</p>
-            <p className="mt-1 text-masa/50">UEN: {UEN}</p>
+        <div className="text-sm">
+          <p className="mb-3 font-semibold">Pages</p>
+          <div className="space-y-1.5 text-ink-soft">
+            <Link to="/" className="block hover:text-ink">Home</Link>
+            <Link to="/products" className="block hover:text-ink">Products</Link>
+            <Link to="/about" className="block hover:text-ink">About us</Link>
           </div>
         </div>
 
-        <p className="pt-8 text-center text-xs text-masa/40">
-          © {new Date().getFullYear()} El Loco Enterprise Pte. Ltd. · All product names are
-          trademarks of their respective owners.
-        </p>
+        <div className="text-sm">
+          <p className="mb-3 font-semibold">Contact</p>
+          <div className="space-y-1.5 text-ink-soft">
+            <a href={PHONE_TEL} className="block hover:text-ink">{PHONE_DISPLAY}</a>
+            <a href={WHATSAPP} target="_blank" rel="noreferrer" className="block hover:text-ink">
+              WhatsApp us
+            </a>
+            <a href={`mailto:${EMAIL}`} className="block hover:text-ink">{EMAIL}</a>
+            <a href={MAPS_URL} target="_blank" rel="noreferrer" className="block hover:text-ink">
+              {ADDRESS}
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div className="border-t border-ink/10 py-4 text-center text-xs text-ink-soft/70">
+        © {new Date().getFullYear()} El Loco Enterprise Pte. Ltd. Product names belong to their
+        respective brands.
       </div>
     </footer>
   )
