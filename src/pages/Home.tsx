@@ -1,14 +1,12 @@
 import { useContext, useRef } from 'react'
 import { Link } from 'react-router-dom'
+import { motion } from 'motion/react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { useGSAP } from '@gsap/react'
-import Aurora from '../components/reactbits/Aurora'
 import RotatingText from '../components/reactbits/RotatingText'
 import ScrollVelocity from '../components/reactbits/ScrollVelocity'
 import CountUp from '../components/reactbits/CountUp'
-import BlurText from '../components/reactbits/BlurText'
-import CircularText from '../components/reactbits/CircularText'
 import Magnet from '../components/reactbits/Magnet'
 import AnimatedContent from '../components/reactbits/AnimatedContent'
 import SplitLine from '../components/SplitLine'
@@ -28,60 +26,69 @@ const FEATURED = [
 
 function Hero() {
   const introDone = useContext(IntroContext)
+  const fade = (delay: number) => ({
+    initial: { opacity: 0, y: 24 },
+    animate: introDone ? { opacity: 1, y: 0 } : {},
+    transition: { duration: 0.8, delay, ease: [0.22, 1, 0.36, 1] as const },
+  })
+
   return (
     <section className="relative overflow-hidden bg-espresso text-masa">
-      <div className="absolute inset-0 opacity-70">
-        <Aurora colorStops={['#f4640a', '#ffb24d', '#ce2c1d']} amplitude={1.0} blend={0.6} speed={0.55} />
+      {/* Flat two-tone field: espresso + a crisp awning band on the right */}
+      <div
+        aria-hidden="true"
+        className="absolute inset-y-0 right-0 hidden w-16 items-center justify-center bg-sunset sm:flex lg:w-24"
+      >
+        <p className="vtext text-[0.65rem] font-semibold uppercase tracking-[0.34em] text-espresso">
+          Wholesale &amp; Retail — Sembawang, Singapore — Est. 2021
+        </p>
       </div>
-      <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-espresso/10 via-espresso/40 to-espresso" />
 
-      <div className="relative z-10 mx-auto flex min-h-svh w-full max-w-[88rem] flex-col justify-end px-6 pb-14 sm:px-10 sm:pb-16">
-        <p className="kicker-light mb-8">Wholesale &amp; Retail — Sembawang, Singapore</p>
+      <div className="relative z-10 mx-auto flex min-h-svh w-full max-w-[88rem] flex-col justify-end px-6 pb-14 sm:px-10 sm:pr-28 sm:pb-16 lg:pr-40">
+        <motion.p className="kicker-light mb-8" {...fade(0.1)}>
+          Wholesale &amp; Retail — Sembawang, Singapore
+        </motion.p>
 
-        <h1 className="font-display font-bold leading-[0.98]">
-          <SplitLine text="Hundreds of" className="text-[13.5vw] sm:text-[9.5vw]" />
-          <span className="block overflow-hidden pb-[0.12em] text-[13.5vw] italic text-sunset sm:text-[9.5vw]">
+        <h1 className="font-display font-bold leading-[1.02] tracking-[-0.01em]">
+          <SplitLine text="Hundreds of" className="text-[11.5vw] sm:text-[8.5vw]" />
+          <span className="block overflow-hidden pb-[0.14em] text-[11.5vw] italic text-sunset sm:text-[8.5vw]">
             <RotatingText
               texts={FLAVOR_WORDS}
-              mainClassName="inline-flex overflow-hidden py-[0.2em] -my-[0.2em] px-[0.08em] -mx-[0.08em]"
+              mainClassName="inline-flex overflow-hidden py-[0.22em] -my-[0.22em] px-[0.22em] -mx-[0.22em]"
               staggerFrom="first"
-              staggerDuration={0.018}
-              rotationInterval={2600}
-              initial={{ y: '110%', opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              exit={{ y: '-110%', opacity: 0 }}
-              transition={{ type: 'spring', damping: 30, stiffness: 300 }}
+              staggerDuration={0.02}
+              rotationInterval={3000}
+              initial={{ y: '115%' }}
+              animate={{ y: 0 }}
+              exit={{ y: '-115%' }}
+              transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
             />
           </span>
-          <SplitLine text="under one roof." className="text-[13.5vw] sm:text-[9.5vw]" />
+          <SplitLine text="under one roof." className="text-[11.5vw] sm:text-[8.5vw]" />
         </h1>
 
-        <div className="mt-8 flex items-end justify-between gap-8">
-          {introDone && (
-            <BlurText
-              text="Your one-stop wholesale and retail shop for high-quality, affordable snacks, drinks and pantry heroes from across the region."
-              animateBy="words"
-              direction="top"
-              delay={35}
-              className="max-w-md text-base font-light leading-relaxed text-masa/75 sm:text-lg"
-            />
-          )}
+        <motion.p
+          className="mt-8 max-w-md text-base leading-relaxed font-normal text-masa/70 sm:text-lg"
+          {...fade(0.35)}
+        >
+          Your one-stop wholesale and retail shop for high-quality, affordable snacks, drinks and
+          pantry heroes from across the region.
+        </motion.p>
 
-          {/* Spinning call badge — React Bits CircularText */}
-          <Magnet padding={70} magnetStrength={3.5}>
-            <a href={PHONE_TEL} aria-label={`Call us to order at ${PHONE_DISPLAY}`} className="group relative block">
-              <CircularText
-                text="CALL US TO ORDER ✦ EL LOCO ✦ "
-                spinDuration={22}
-                onHover="speedUp"
-                className="!h-[130px] !w-[130px] text-masa transition-colors duration-300 group-hover:text-mango sm:!h-[160px] sm:!w-[160px]"
-              />
-              <span className="absolute inset-0 grid place-items-center font-display text-3xl italic text-sunset transition-transform duration-500 group-hover:rotate-45 sm:text-4xl">
-                ↗
-              </span>
-            </a>
-          </Magnet>
-        </div>
+        <motion.div className="mt-9 flex flex-wrap items-center gap-x-8 gap-y-4" {...fade(0.5)}>
+          <a
+            href={PHONE_TEL}
+            className="block rounded-[2px] bg-sunset px-8 py-4 text-sm font-semibold tracking-wide text-espresso transition-colors duration-300 hover:bg-mango"
+          >
+            Call to order — {PHONE_DISPLAY}
+          </a>
+          <Link
+            to="/products"
+            className="link-line text-sm font-medium tracking-wide text-masa/80 hover:text-masa"
+          >
+            Browse the products →
+          </Link>
+        </motion.div>
       </div>
     </section>
   )

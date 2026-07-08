@@ -29,7 +29,7 @@ export default function Navbar() {
       }`}
     >
       <nav
-        className={`mx-auto flex max-w-[88rem] items-center justify-between px-6 sm:px-10 ${
+        className={`mx-auto flex max-w-[88rem] items-center justify-between gap-3 px-4 sm:px-10 ${
           dark ? 'text-masa' : 'text-espresso'
         }`}
       >
@@ -40,13 +40,13 @@ export default function Navbar() {
           </span>
         </Link>
 
-        <div className="flex items-center gap-5 sm:gap-12">
+        <div className="flex items-center gap-4 sm:gap-12">
           {LINKS.map(l => (
             <NavLink
               key={l.to}
               to={l.to}
               className={({ isActive }) =>
-                `link-line text-[0.8rem] font-medium uppercase tracking-[0.18em] ${isActive ? 'is-active' : ''}`
+                `link-line text-[0.7rem] font-medium uppercase tracking-[0.1em] sm:text-[0.8rem] sm:tracking-[0.18em] ${isActive ? 'is-active' : ''}`
               }
             >
               {l.label}
@@ -55,7 +55,7 @@ export default function Navbar() {
           <Magnet padding={50} magnetStrength={4}>
             <a
               href={PHONE_TEL}
-              className={`block rounded-full border px-5 py-2.5 text-[0.8rem] font-semibold tracking-wide transition-colors duration-300 ${
+              className={`block rounded-full border px-4 py-2 text-[0.7rem] font-semibold tracking-wide whitespace-nowrap transition-colors duration-300 sm:px-5 sm:py-2.5 sm:text-[0.8rem] ${
                 dark
                   ? 'border-masa/30 hover:bg-masa hover:text-espresso'
                   : 'border-espresso/25 hover:bg-espresso hover:text-masa'
