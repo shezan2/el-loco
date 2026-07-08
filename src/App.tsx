@@ -1,9 +1,10 @@
+import { useEffect, useState } from 'react'
 import { BrowserRouter, Route, Routes, useLocation } from 'react-router-dom'
 import { AnimatePresence, motion } from 'motion/react'
-import { useEffect } from 'react'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import SmoothScroll, { lenis } from './components/SmoothScroll'
 import Preloader from './components/Preloader'
+import { IntroContext } from './components/introContext'
 import Navbar from './sections/Navbar'
 import Footer from './sections/Footer'
 import Home from './pages/Home'
@@ -41,14 +42,18 @@ function AnimatedRoutes() {
 }
 
 export default function App() {
+  const [introDone, setIntroDone] = useState(() => sessionStorage.getItem('elloco-intro') === '1')
+
   return (
     <BrowserRouter>
-      <SmoothScroll />
-      <Preloader />
-      <Navbar />
-      <main>
-        <AnimatedRoutes />
-      </main>
+      <IntroContext.Provider value={introDone}>
+        <SmoothScroll />
+        <Preloader onDone={() => setIntroDone(true)} />
+        <Navbar />
+        <main>
+          <AnimatedRoutes />
+        </main>
+      </IntroContext.Provider>
     </BrowserRouter>
   )
 }

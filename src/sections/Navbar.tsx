@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { NavLink, Link, useLocation } from 'react-router-dom'
-import Magnetic from '../components/Magnetic'
+import Magnet from '../components/reactbits/Magnet'
 import { PHONE_DISPLAY, PHONE_TEL } from '../data/products'
 
 const LINKS = [
@@ -52,7 +52,7 @@ export default function Navbar() {
               {l.label}
             </NavLink>
           ))}
-          <Magnetic strength={0.25}>
+          <Magnet padding={50} magnetStrength={4}>
             <a
               href={PHONE_TEL}
               className={`block rounded-full border px-5 py-2.5 text-[0.8rem] font-semibold tracking-wide transition-colors duration-300 ${
@@ -64,7 +64,7 @@ export default function Navbar() {
               <span className="sm:hidden">Call us</span>
               <span className="hidden sm:inline">{PHONE_DISPLAY}</span>
             </a>
-          </Magnetic>
+          </Magnet>
         </div>
       </nav>
     </header>

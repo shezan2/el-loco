@@ -1,8 +1,10 @@
 import { useMemo } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import { motion, AnimatePresence } from 'motion/react'
-import SplitText from '../components/reactbits/SplitText'
-import Magnetic from '../components/Magnetic'
+import GlareHover from '../components/reactbits/GlareHover'
+import Magnet from '../components/reactbits/Magnet'
+import AnimatedContent from '../components/reactbits/AnimatedContent'
+import SplitLine from '../components/SplitLine'
 import { CATEGORIES, PHONE_DISPLAY, PHONE_TEL, PRODUCTS } from '../data/products'
 
 const EASE = [0.22, 1, 0.36, 1] as const
@@ -29,34 +31,8 @@ export default function Products() {
           <div>
             <p className="kicker mb-6">The Catalog — {PRODUCTS.length} products</p>
             <h1 className="font-display font-bold leading-[1.02]">
-              <div className="overflow-hidden pb-[0.12em]">
-                <SplitText
-                  text="Every product,"
-                  tag="span"
-                  className="block text-6xl sm:text-8xl"
-                  splitType="chars"
-                  delay={20}
-                  duration={1}
-                  ease="power4.out"
-                  from={{ opacity: 0, y: 90 }}
-                  to={{ opacity: 1, y: 0 }}
-                  textAlign="left"
-                />
-              </div>
-              <div className="overflow-hidden pb-[0.12em]">
-                <SplitText
-                  text="every flavor."
-                  tag="span"
-                  className="block text-6xl italic text-sunset sm:text-8xl"
-                  splitType="chars"
-                  delay={20}
-                  duration={1}
-                  ease="power4.out"
-                  from={{ opacity: 0, y: 90 }}
-                  to={{ opacity: 1, y: 0 }}
-                  textAlign="left"
-                />
-              </div>
+              <SplitLine text="Every product," className="text-6xl sm:text-8xl" />
+              <SplitLine text="every flavor." className="text-6xl italic text-sunset sm:text-8xl" />
             </h1>
           </div>
           <p className="max-w-xs pb-2 text-sm font-light leading-relaxed text-espresso-soft/70">
@@ -103,12 +79,26 @@ export default function Products() {
                   className="group"
                 >
                   <div className="img-frame relative aspect-[4/5] bg-masa-deep">
-                    <img
-                      src={p.image}
-                      alt={p.name}
-                      loading="lazy"
-                      className="h-full w-full object-cover"
-                    />
+                    <GlareHover
+                      width="100%"
+                      height="100%"
+                      background="transparent"
+                      borderRadius="0"
+                      borderColor="transparent"
+                      glareColor="#fff8ee"
+                      glareOpacity={0.35}
+                      glareAngle={-30}
+                      glareSize={260}
+                      transitionDuration={850}
+                      className="!absolute !inset-0 !border-0"
+                    >
+                      <img
+                        src={p.image}
+                        alt={p.name}
+                        loading="lazy"
+                        className="h-full w-full object-cover"
+                      />
+                    </GlareHover>
                   </div>
                   <div className="hairline mt-5 flex items-baseline justify-between gap-4 border-t pt-4">
                     <div>
@@ -126,21 +116,23 @@ export default function Products() {
         </motion.div>
 
         {/* Editorial CTA */}
-        <div className="hairline mt-28 border-t pt-16 text-center">
+        <AnimatedContent distance={50} duration={0.9} ease="power3.out">
+          <div className="hairline mt-28 border-t pt-16 text-center">
           <p className="kicker mb-6">Spotted something you like?</p>
-          <Magnetic strength={0.15}>
+          <Magnet padding={110} magnetStrength={5}>
             <a
               href={PHONE_TEL}
               className="block font-display text-[10vw] font-black tracking-tight transition-colors duration-300 hover:text-sunset sm:text-[6vw]"
             >
               {PHONE_DISPLAY}
             </a>
-          </Magnetic>
+          </Magnet>
           <p className="mx-auto mt-6 max-w-md text-sm font-light leading-relaxed text-espresso-soft/70">
             Wholesale cartons or retail packs — we do both. The in-store range is far bigger than
             this page; if you don&apos;t see it, ask.
           </p>
-        </div>
+          </div>
+        </AnimatedContent>
       </section>
     </>
   )

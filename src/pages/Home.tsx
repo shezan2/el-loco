@@ -1,14 +1,18 @@
-import { useRef } from 'react'
+import { useContext, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { useGSAP } from '@gsap/react'
 import Aurora from '../components/reactbits/Aurora'
-import SplitText from '../components/reactbits/SplitText'
 import RotatingText from '../components/reactbits/RotatingText'
 import ScrollVelocity from '../components/reactbits/ScrollVelocity'
 import CountUp from '../components/reactbits/CountUp'
-import Magnetic from '../components/Magnetic'
+import BlurText from '../components/reactbits/BlurText'
+import CircularText from '../components/reactbits/CircularText'
+import Magnet from '../components/reactbits/Magnet'
+import AnimatedContent from '../components/reactbits/AnimatedContent'
+import SplitLine from '../components/SplitLine'
+import { IntroContext } from '../components/introContext'
 import { FLAVOR_WORDS, PHONE_DISPLAY, PHONE_TEL, PRODUCTS, CATEGORIES } from '../data/products'
 
 gsap.registerPlugin(ScrollTrigger)
@@ -23,6 +27,7 @@ const FEATURED = [
 ].map(n => PRODUCTS.find(p => p.name === n)!)
 
 function Hero() {
+  const introDone = useContext(IntroContext)
   return (
     <section className="relative overflow-hidden bg-espresso text-masa">
       <div className="absolute inset-0 opacity-70">
@@ -30,28 +35,15 @@ function Hero() {
       </div>
       <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-espresso/10 via-espresso/40 to-espresso" />
 
-      <div className="relative z-10 mx-auto flex min-h-svh w-full max-w-[88rem] flex-col justify-end px-6 pb-10 sm:px-10">
-        <div className="mb-auto" />
-
+      <div className="relative z-10 mx-auto flex min-h-svh w-full max-w-[88rem] flex-col justify-end px-6 pb-14 sm:px-10 sm:pb-16">
         <p className="kicker-light mb-8">Wholesale &amp; Retail — Sembawang, Singapore</p>
 
-        <h1 className="font-display font-bold leading-[0.93]">
-          <SplitText
-            text="Hundreds of"
-            tag="span"
-            className="block text-[13.5vw] sm:text-[9.5vw]"
-            splitType="chars"
-            delay={26}
-            duration={1.1}
-            ease="power4.out"
-            from={{ opacity: 0, y: 110 }}
-            to={{ opacity: 1, y: 0 }}
-            textAlign="left"
-          />
-          <span className="block text-[13.5vw] italic text-sunset sm:text-[9.5vw]">
+        <h1 className="font-display font-bold leading-[0.98]">
+          <SplitLine text="Hundreds of" className="text-[13.5vw] sm:text-[9.5vw]" />
+          <span className="block overflow-hidden pb-[0.12em] text-[13.5vw] italic text-sunset sm:text-[9.5vw]">
             <RotatingText
               texts={FLAVOR_WORDS}
-              mainClassName="inline-flex overflow-hidden py-[0.12em] -my-[0.12em]"
+              mainClassName="inline-flex overflow-hidden py-[0.2em] -my-[0.2em] px-[0.08em] -mx-[0.08em]"
               staggerFrom="first"
               staggerDuration={0.018}
               rotationInterval={2600}
@@ -61,38 +53,34 @@ function Hero() {
               transition={{ type: 'spring', damping: 30, stiffness: 300 }}
             />
           </span>
-          <SplitText
-            text="under one roof."
-            tag="span"
-            className="block text-[13.5vw] sm:text-[9.5vw]"
-            splitType="chars"
-            delay={26}
-            duration={1.1}
-            ease="power4.out"
-            from={{ opacity: 0, y: 110 }}
-            to={{ opacity: 1, y: 0 }}
-            textAlign="left"
-          />
+          <SplitLine text="under one roof." className="text-[13.5vw] sm:text-[9.5vw]" />
         </h1>
 
-        {/* Editorial info rail */}
-        <div className="hairline-light mt-14 grid grid-cols-2 gap-6 border-t pt-6 sm:grid-cols-4">
-          <div>
-            <p className="kicker-light mb-2">The shop</p>
-            <p className="text-sm text-masa/75">One-stop wholesale &amp; retail. Snacks, drinks, pantry heroes.</p>
-          </div>
-          <div className="hidden sm:block">
-            <p className="kicker-light mb-2">The range</p>
-            <p className="text-sm text-masa/75">{PRODUCTS.length} favourites on this site — far more in store.</p>
-          </div>
-          <div className="hidden sm:block">
-            <p className="kicker-light mb-2">The catalog</p>
-            <Link to="/products" className="link-line text-sm text-masa/90">Browse the shelves</Link>
-          </div>
-          <div className="text-right sm:text-left">
-            <p className="kicker-light mb-2">To order</p>
-            <a href={PHONE_TEL} className="link-line text-sm font-semibold text-mango">{PHONE_DISPLAY}</a>
-          </div>
+        <div className="mt-8 flex items-end justify-between gap-8">
+          {introDone && (
+            <BlurText
+              text="Your one-stop wholesale and retail shop for high-quality, affordable snacks, drinks and pantry heroes from across the region."
+              animateBy="words"
+              direction="top"
+              delay={35}
+              className="max-w-md text-base font-light leading-relaxed text-masa/75 sm:text-lg"
+            />
+          )}
+
+          {/* Spinning call badge — React Bits CircularText */}
+          <Magnet padding={70} magnetStrength={3.5}>
+            <a href={PHONE_TEL} aria-label={`Call us to order at ${PHONE_DISPLAY}`} className="group relative block">
+              <CircularText
+                text="CALL US TO ORDER ✦ EL LOCO ✦ "
+                spinDuration={22}
+                onHover="speedUp"
+                className="!h-[130px] !w-[130px] text-masa transition-colors duration-300 group-hover:text-mango sm:!h-[160px] sm:!w-[160px]"
+              />
+              <span className="absolute inset-0 grid place-items-center font-display text-3xl italic text-sunset transition-transform duration-500 group-hover:rotate-45 sm:text-4xl">
+                ↗
+              </span>
+            </a>
+          </Magnet>
         </div>
       </div>
     </section>
@@ -208,14 +196,14 @@ function Showcase() {
           <p className="font-display text-4xl font-bold leading-tight sm:text-5xl">
             …and {PRODUCTS.length - FEATURED.length}+ more waiting.
           </p>
-          <Magnetic>
+          <Magnet padding={70} magnetStrength={3.5}>
             <Link
               to="/products"
               className="mt-8 block rounded-full bg-espresso px-8 py-4 text-sm font-semibold uppercase tracking-[0.15em] text-masa transition-colors duration-300 hover:bg-sunset"
             >
               Full catalog
             </Link>
-          </Magnetic>
+          </Magnet>
         </div>
       </div>
     </section>
@@ -234,11 +222,13 @@ function Stats() {
       <div className="mx-auto grid max-w-[88rem] grid-cols-2 lg:grid-cols-4">
         {stats.map((s, i) => (
           <div key={s.label} className={`hairline px-6 py-12 sm:px-10 ${i > 0 ? 'lg:border-l' : ''} ${i % 2 === 1 ? 'border-l lg:border-l' : ''}`}>
-            <p className="font-display text-5xl font-black tracking-tight sm:text-6xl">
-              <CountUp to={s.to} duration={1.6} className="tabular-nums" separator={s.year ? '' : ','} />
-              <span className="text-sunset">{s.suffix}</span>
-            </p>
-            <p className="kicker mt-3">{s.label}</p>
+            <AnimatedContent distance={44} duration={0.9} ease="power3.out" delay={i * 0.09}>
+              <p className="font-display text-5xl font-black tracking-tight sm:text-6xl">
+                <CountUp to={s.to} duration={1.6} className="tabular-nums" separator={s.year ? '' : ','} />
+                <span className="text-sunset">{s.suffix}</span>
+              </p>
+              <p className="kicker mt-3">{s.label}</p>
+            </AnimatedContent>
           </div>
         ))}
       </div>
@@ -262,16 +252,18 @@ function OrderRitual() {
         </h2>
 
         <div className="mt-16">
-          {STEPS.map(s => (
-            <div key={s.n} className="hairline-light group grid grid-cols-[auto_1fr] items-baseline gap-6 border-t py-8 transition-colors duration-500 hover:bg-masa/[0.04] sm:grid-cols-[8rem_1fr_1.2fr] sm:gap-10">
-              <span className="font-display text-2xl font-bold italic text-masa/30 transition-colors duration-500 group-hover:text-sunset sm:text-4xl">
-                {s.n}
-              </span>
-              <h3 className="font-display text-2xl font-bold sm:text-4xl">{s.title}</h3>
-              <p className="col-span-2 max-w-md text-sm font-light leading-relaxed text-masa/60 sm:col-span-1 sm:text-base">
-                {s.body}
-              </p>
-            </div>
+          {STEPS.map((s, i) => (
+            <AnimatedContent key={s.n} distance={50} duration={0.9} ease="power3.out" delay={i * 0.08}>
+              <div className="hairline-light group grid grid-cols-[auto_1fr] items-baseline gap-6 border-t py-8 transition-colors duration-500 hover:bg-masa/[0.04] sm:grid-cols-[8rem_1fr_1.2fr] sm:gap-10">
+                <span className="font-display text-2xl font-bold italic text-masa/30 transition-colors duration-500 group-hover:text-sunset sm:text-4xl">
+                  {s.n}
+                </span>
+                <h3 className="font-display text-2xl font-bold sm:text-4xl">{s.title}</h3>
+                <p className="col-span-2 max-w-md text-sm font-light leading-relaxed text-masa/60 sm:col-span-1 sm:text-base">
+                  {s.body}
+                </p>
+              </div>
+            </AnimatedContent>
           ))}
         </div>
       </div>
@@ -287,14 +279,14 @@ function OrderRitual() {
           />
         </div>
         <div className="relative flex justify-center py-10">
-          <Magnetic strength={0.2}>
+          <Magnet padding={110} magnetStrength={5}>
             <a
               href={PHONE_TEL}
               className="block font-display text-[9vw] font-black tracking-tight text-masa transition-colors duration-300 hover:text-sunset sm:text-[6.5vw]"
             >
               {PHONE_DISPLAY}
             </a>
-          </Magnetic>
+          </Magnet>
         </div>
       </div>
     </section>

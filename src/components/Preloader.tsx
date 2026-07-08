@@ -4,7 +4,7 @@ import CountUp from './reactbits/CountUp'
 import { lenis } from './SmoothScroll'
 
 // Branded intro loader — plays once per session, curtain lifts on completion
-export default function Preloader() {
+export default function Preloader({ onDone }: { onDone: () => void }) {
   const [done, setDone] = useState(() => sessionStorage.getItem('elloco-intro') === '1')
 
   useEffect(() => {
@@ -19,7 +19,10 @@ export default function Preloader() {
 
   const finish = () => {
     sessionStorage.setItem('elloco-intro', '1')
-    setTimeout(() => setDone(true), 350)
+    setTimeout(() => {
+      setDone(true)
+      onDone() // entrance animations start as the curtain lifts
+    }, 350)
   }
 
   return (
