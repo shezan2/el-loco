@@ -11,6 +11,7 @@ import Magnet from '../components/reactbits/Magnet'
 import AnimatedContent from '../components/reactbits/AnimatedContent'
 import SplitLine from '../components/SplitLine'
 import CallButton from '../components/CallButton'
+import ShelfCarousel from '../components/ShelfCarousel'
 import { IntroContext } from '../components/introContext'
 import { FLAVOR_WORDS, PHONE_DISPLAY, PHONE_TEL, PRODUCTS, CATEGORIES } from '../data/products'
 
@@ -144,14 +145,15 @@ function Showcase() {
 
   return (
     <section ref={wrapRef} className="bg-masa">
+      {/* Desktop: GSAP-pinned horizontal shelf */}
       <div
         ref={trackRef}
-        className="flex snap-x snap-mandatory items-stretch gap-[6vw] overflow-x-auto px-6 py-20 lg:h-screen lg:snap-none lg:items-center lg:overflow-visible lg:px-[8vw] lg:py-0"
+        className="hidden h-screen items-center gap-[6vw] px-[8vw] lg:flex"
       >
         {/* Intro panel */}
-        <div className="flex w-[80vw] shrink-0 snap-start flex-col justify-center lg:w-[30vw]">
+        <div className="flex w-[30vw] shrink-0 flex-col justify-center">
           <p className="kicker mb-5">N°1 — The shelves</p>
-          <h2 className="font-display text-5xl font-bold leading-[1.02] sm:text-6xl">
+          <h2 className="font-display text-6xl font-bold leading-[1.02]">
             Taste your way <em className="text-sunset">down the aisle.</em>
           </h2>
           <p className="mt-6 max-w-sm text-base font-light leading-relaxed text-espresso-soft/80">
@@ -162,7 +164,7 @@ function Showcase() {
         {FEATURED.map((p, i) => {
           const cat = CATEGORIES.find(c => c.id === p.categoryId)!
           return (
-            <figure key={p.name} className="w-[72vw] shrink-0 snap-start sm:w-[48vw] lg:w-[26vw]">
+            <figure key={p.name} className="w-[26vw] shrink-0">
               <div className="img-frame relative aspect-[4/5]">
                 <img
                   src={p.image}
@@ -185,8 +187,8 @@ function Showcase() {
         })}
 
         {/* Outro panel */}
-        <div className="flex w-[70vw] shrink-0 snap-start flex-col items-start justify-center lg:w-[26vw]">
-          <p className="font-display text-4xl font-bold leading-tight sm:text-5xl">
+        <div className="flex w-[26vw] shrink-0 flex-col items-start justify-center">
+          <p className="font-display text-5xl font-bold leading-tight">
             …and {PRODUCTS.length - FEATURED.length}+ more waiting.
           </p>
           <Magnet padding={70} magnetStrength={3.5}>
@@ -197,6 +199,31 @@ function Showcase() {
               Full catalog
             </Link>
           </Magnet>
+        </div>
+      </div>
+
+      {/* Mobile / tablet: snap carousel */}
+      <div className="px-6 py-16 sm:px-10 lg:hidden">
+        <p className="kicker mb-4">N°1 — The shelves</p>
+        <h2 className="font-display text-4xl font-bold leading-[1.05] sm:text-5xl">
+          Taste your way <em className="text-sunset">down the aisle.</em>
+        </h2>
+        <p className="mt-4 mb-8 max-w-sm text-sm font-light leading-relaxed text-espresso-soft/80">
+          Six of the shelves&apos; most-raided flavors — swipe through.
+        </p>
+
+        <ShelfCarousel items={FEATURED} />
+
+        <div className="hairline mt-10 flex items-center justify-between border-t pt-6">
+          <p className="font-display text-xl font-bold">
+            …and {PRODUCTS.length - FEATURED.length}+ more waiting.
+          </p>
+          <Link
+            to="/products"
+            className="block shrink-0 rounded-full bg-espresso px-6 py-3.5 text-xs font-semibold uppercase tracking-[0.15em] text-masa active:bg-sunset"
+          >
+            Full catalog
+          </Link>
         </div>
       </div>
     </section>
