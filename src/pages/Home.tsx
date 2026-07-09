@@ -35,18 +35,18 @@ function Hero() {
 
   return (
     <section className="relative overflow-hidden bg-espresso text-masa">
-      <div className="relative z-10 mx-auto flex min-h-svh w-full max-w-[88rem] flex-col justify-end px-6 pb-14 sm:px-10 sm:pb-16">
+      <div className="relative z-10 mx-auto flex min-h-svh w-full max-w-[88rem] flex-col items-center justify-center px-6 py-28 text-center sm:px-10">
         <motion.p className="kicker-light mb-8" {...fade(0.1)}>
           Wholesale &amp; Retail — Sembawang, Singapore
         </motion.p>
 
         <h1 className="font-display font-bold leading-[1.02] tracking-[-0.01em]">
-          <SplitLine text="Hundreds of" className="text-[11.5vw] sm:text-[8.5vw]" />
-          <span className="block overflow-hidden pb-[0.14em] text-[11.5vw] italic text-sunset sm:text-[8.5vw]">
+          <SplitLine text="Hundreds of" align="center" className="text-[11.5vw] sm:text-[8.5vw]" />
+          <span className="flex justify-center overflow-hidden pb-[0.14em] text-[11.5vw] italic text-sunset sm:text-[8.5vw]">
             <RotatingText
               texts={FLAVOR_WORDS}
-              mainClassName="inline-flex overflow-hidden py-[0.22em] -my-[0.22em] px-[0.22em] -mx-[0.22em]"
-              staggerFrom="first"
+              mainClassName="inline-flex justify-center overflow-hidden py-[0.22em] -my-[0.22em] px-[0.22em] -mx-[0.22em]"
+              staggerFrom="center"
               staggerDuration={0.02}
               rotationInterval={3000}
               initial={{ y: '115%' }}
@@ -55,18 +55,18 @@ function Hero() {
               transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
             />
           </span>
-          <SplitLine text="under one roof." className="text-[11.5vw] sm:text-[8.5vw]" />
+          <SplitLine text="under one roof." align="center" className="text-[11.5vw] sm:text-[8.5vw]" />
         </h1>
 
         <motion.p
-          className="mt-8 max-w-md text-base leading-relaxed font-normal text-masa/70 sm:text-lg"
+          className="mt-8 max-w-xl text-base leading-relaxed font-normal text-masa/70 sm:text-lg"
           {...fade(0.35)}
         >
           Your one-stop wholesale and retail shop for high-quality, affordable snacks, drinks and
           pantry heroes from across the region.
         </motion.p>
 
-        <motion.div className="mt-9 flex flex-wrap items-center gap-x-8 gap-y-4" {...fade(0.5)}>
+        <motion.div className="mt-9 flex flex-wrap items-center justify-center gap-x-8 gap-y-4" {...fade(0.5)}>
           <CallButton />
           <Link
             to="/products"
