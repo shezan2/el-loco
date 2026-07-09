@@ -304,7 +304,7 @@ function OrderRitual() {
           <Magnet padding={110} magnetStrength={5}>
             <a
               href={PHONE_TEL}
-              className="block font-display text-[9vw] font-black tracking-tight text-masa transition-colors duration-300 hover:text-sunset sm:text-[6.5vw]"
+              className="block font-display text-[5.4vw] font-black tracking-tight text-masa transition-colors duration-300 hover:text-sunset sm:text-[3.9vw]"
             >
               {PHONE_DISPLAY}
             </a>
