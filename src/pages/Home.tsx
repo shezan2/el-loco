@@ -11,6 +11,7 @@ import Magnet from '../components/reactbits/Magnet'
 import AnimatedContent from '../components/reactbits/AnimatedContent'
 import SplitLine from '../components/SplitLine'
 import CallButton from '../components/CallButton'
+import WhatsAppButton from '../components/WhatsAppButton'
 import ShelfCarousel from '../components/ShelfCarousel'
 import { IntroContext } from '../components/introContext'
 import { FLAVOR_WORDS, PHONE_DISPLAY, PHONE_TEL, PRODUCTS, CATEGORIES } from '../data/products'
@@ -67,11 +68,12 @@ function Hero() {
           pantry heroes from across the region.
         </motion.p>
 
-        <motion.div className="mt-9 flex flex-wrap items-center justify-center gap-x-8 gap-y-4" {...fade(0.5)}>
+        <motion.div className="mt-9 flex flex-wrap items-center justify-center gap-x-5 gap-y-4" {...fade(0.5)}>
           <CallButton />
+          <WhatsAppButton />
           <Link
             to="/products"
-            className="link-line text-sm font-medium tracking-wide text-masa/80 hover:text-masa"
+            className="link-line ml-3 text-sm font-medium tracking-wide text-masa/80 hover:text-masa"
           >
             Browse the products →
           </Link>
@@ -298,7 +300,7 @@ function OrderRitual() {
             numCopies={6}
           />
         </div>
-        <div className="relative flex justify-center py-10">
+        <div className="relative flex flex-col items-center py-10">
           <Magnet padding={110} magnetStrength={5}>
             <a
               href={PHONE_TEL}
@@ -307,6 +309,9 @@ function OrderRitual() {
               {PHONE_DISPLAY}
             </a>
           </Magnet>
+          <div className="mt-6">
+            <WhatsAppButton />
+          </div>
         </div>
       </div>
     </section>

@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { ADDRESS, EMAIL, PHONE_DISPLAY, PHONE_TEL, UEN } from '../data/products'
+import { ADDRESS, EMAIL, HOURS, MAPS_LINK, PHONE_DISPLAY, PHONE_TEL, UEN, WHATSAPP_LINK } from '../data/products'
 
 export default function Footer() {
   return (
@@ -17,11 +17,28 @@ export default function Footer() {
           <div>
             <p className="kicker-light mb-4">Visit</p>
             <p className="max-w-[26ch] text-sm leading-relaxed text-masa/70">{ADDRESS}</p>
+            <p className="mt-1.5 text-sm text-masa/70">{HOURS}</p>
+            <a
+              href={MAPS_LINK}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="link-line mt-2 block w-fit text-sm text-mango"
+            >
+              Get directions →
+            </a>
             <p className="mt-2 text-xs text-masa/40">UEN {UEN}</p>
           </div>
           <div>
             <p className="kicker-light mb-4">Order</p>
             <a href={PHONE_TEL} className="link-line block w-fit text-sm font-semibold text-mango">{PHONE_DISPLAY}</a>
+            <a
+              href={WHATSAPP_LINK}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="link-line mt-1.5 block w-fit text-sm text-masa/70 hover:text-masa"
+            >
+              WhatsApp us
+            </a>
             <a href={`mailto:${EMAIL}`} className="link-line mt-1.5 block w-fit text-sm text-masa/70 hover:text-masa">{EMAIL}</a>
           </div>
         </div>

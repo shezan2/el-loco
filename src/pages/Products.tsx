@@ -5,6 +5,7 @@ import GlareHover from '../components/reactbits/GlareHover'
 import Magnet from '../components/reactbits/Magnet'
 import AnimatedContent from '../components/reactbits/AnimatedContent'
 import SplitLine from '../components/SplitLine'
+import WhatsAppButton from '../components/WhatsAppButton'
 import { CATEGORIES, PHONE_DISPLAY, PHONE_TEL, PRODUCTS } from '../data/products'
 
 const EASE = [0.22, 1, 0.36, 1] as const
@@ -127,6 +128,9 @@ export default function Products() {
               {PHONE_DISPLAY}
             </a>
           </Magnet>
+          <div className="mt-6 flex justify-center">
+            <WhatsAppButton dark={false} />
+          </div>
           <p className="mx-auto mt-6 max-w-md text-sm font-light leading-relaxed text-espresso-soft/70">
             Wholesale cartons or retail packs — we do both. The in-store range is far bigger than
             this page; if you don&apos;t see it, ask.

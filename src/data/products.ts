@@ -18,9 +18,16 @@ const img = (id: string) => `https://images.unsplash.com/photo-${id}?auto=format
 
 export const PHONE_DISPLAY = '+65 8398 9544'
 export const PHONE_TEL = 'tel:+6583989544'
+export const WHATSAPP_LINK =
+  'https://wa.me/6583989544?text=' +
+  encodeURIComponent("Hi El Loco! I'd like to place an order:")
 export const EMAIL = 'ellocoenterprise@gmail.com'
 export const ADDRESS = '3 Gambas Cres, #02-09 Nordcom 1, Singapore 757088'
 export const UEN = '202137905G'
+// TODO: confirm real opening hours with the client before launch
+export const HOURS = 'Mon–Sat, 10:00 – 19:00'
+export const MAPS_LINK = 'https://maps.google.com/?q=3+Gambas+Crescent+%2302-09+Nordcom+1+Singapore+757088'
+export const MAPS_EMBED = 'https://www.google.com/maps?q=3+Gambas+Crescent+Nordcom+1+Singapore+757088&output=embed'
 
 export const CATEGORIES: Category[] = [
   {

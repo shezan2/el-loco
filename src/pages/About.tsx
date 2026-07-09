@@ -4,8 +4,9 @@ import BlurText from '../components/reactbits/BlurText'
 import Magnet from '../components/reactbits/Magnet'
 import AnimatedContent from '../components/reactbits/AnimatedContent'
 import SplitLine from '../components/SplitLine'
+import WhatsAppButton from '../components/WhatsAppButton'
 import { IntroContext } from '../components/introContext'
-import { ADDRESS, EMAIL, PHONE_DISPLAY, PHONE_TEL, UEN } from '../data/products'
+import { ADDRESS, EMAIL, HOURS, MAPS_EMBED, MAPS_LINK, PHONE_DISPLAY, PHONE_TEL, UEN } from '../data/products'
 
 const TEAM = [
   { name: 'Farah Insyirah', role: 'Will talk your ear off about wafer rolls.' },
@@ -96,19 +97,51 @@ export default function About() {
           <div>
             <p className="kicker mb-5">Come say hi</p>
             <p className="max-w-md font-display text-3xl font-bold leading-snug sm:text-4xl">{ADDRESS}</p>
-            <p className="kicker mt-5">UEN {UEN}</p>
+            <div className="hairline mt-6 grid max-w-md grid-cols-2 gap-6 border-t pt-5">
+              <div>
+                <p className="kicker mb-2">Opening hours</p>
+                <p className="text-sm text-espresso-soft/80">{HOURS}</p>
+              </div>
+              <div>
+                <p className="kicker mb-2">Registered</p>
+                <p className="text-sm text-espresso-soft/80">UEN {UEN}</p>
+              </div>
+            </div>
+            <div className="mt-8 flex flex-col items-start gap-4">
+              <Magnet padding={90} magnetStrength={4}>
+                <a
+                  href={PHONE_TEL}
+                  className="block font-display text-4xl font-black tracking-tight transition-colors duration-300 hover:text-sunset sm:text-5xl"
+                >
+                  {PHONE_DISPLAY}
+                </a>
+              </Magnet>
+              <div className="flex flex-wrap items-center gap-4">
+                <WhatsAppButton dark={false} />
+                <a href={`mailto:${EMAIL}`} className="link-line text-sm text-espresso-soft/75">
+                  {EMAIL}
+                </a>
+              </div>
+            </div>
           </div>
-          <div className="flex flex-col items-start justify-center gap-4">
-            <Magnet padding={90} magnetStrength={4}>
-              <a
-                href={PHONE_TEL}
-                className="block font-display text-5xl font-black tracking-tight transition-colors duration-300 hover:text-sunset sm:text-6xl"
-              >
-                {PHONE_DISPLAY}
-              </a>
-            </Magnet>
-            <a href={`mailto:${EMAIL}`} className="link-line text-base text-espresso-soft/75">
-              {EMAIL}
+
+          <div>
+            <div className="img-frame hairline relative aspect-[4/3] border">
+              <iframe
+                src={MAPS_EMBED}
+                title="Map to El Loco Enterprise — Nordcom 1, Gambas Crescent"
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                className="h-full w-full border-0"
+              />
+            </div>
+            <a
+              href={MAPS_LINK}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="link-line mt-4 inline-block text-sm font-semibold text-sunset-deep"
+            >
+              Get directions →
             </a>
           </div>
         </div>

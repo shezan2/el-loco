@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { lazy, Suspense, useEffect, useState } from 'react'
 import { BrowserRouter, Route, Routes, useLocation } from 'react-router-dom'
 import { AnimatePresence, motion } from 'motion/react'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
@@ -7,9 +7,12 @@ import Preloader from './components/Preloader'
 import { IntroContext } from './components/introContext'
 import Navbar from './sections/Navbar'
 import Footer from './sections/Footer'
-import Home from './pages/Home'
-import Products from './pages/Products'
-import About from './pages/About'
+
+// Route-level code splitting — each page (and its animation deps) loads on demand
+const Home = lazy(() => import('./pages/Home'))
+const Products = lazy(() => import('./pages/Products'))
+const About = lazy(() => import('./pages/About'))
+const NotFound = lazy(() => import('./pages/NotFound'))
 
 function AnimatedRoutes() {
   const location = useLocation()
@@ -30,12 +33,15 @@ function AnimatedRoutes() {
         exit={{ opacity: 0, y: -16 }}
         transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
       >
-        <Routes location={location}>
-          <Route path="/" element={<Home />} />
-          <Route path="/products" element={<Products />} />
-          <Route path="/about" element={<About />} />
-        </Routes>
-        <Footer />
+        <Suspense fallback={<div className="min-h-svh bg-espresso" />}>
+          <Routes location={location}>
+            <Route path="/" element={<Home />} />
+            <Route path="/products" element={<Products />} />
+            <Route path="/about" element={<About />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+          <Footer />
+        </Suspense>
       </motion.div>
     </AnimatePresence>
   )
