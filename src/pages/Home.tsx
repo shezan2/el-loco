@@ -261,7 +261,7 @@ function Stats() {
 const STEPS = [
   { n: '01', title: 'Browse the catalog', body: 'Take the tour or go straight to the grid — every product, categorised.' },
   { n: '02', title: 'Pick your flavors', body: 'Wholesale cartons or retail packs. Note down names and quantities.' },
-  { n: '03', title: 'Call us directly', body: 'Stock, pricing and collection confirmed in one conversation.' },
+  { n: '03', title: 'Text us directly', body: 'Stock, pricing and collection confirmed over a quick text.' },
 ]
 
 function OrderRitual() {
@@ -270,7 +270,7 @@ function OrderRitual() {
       <div className="mx-auto max-w-[88rem] px-6 pt-24 sm:px-10">
         <p className="kicker-light mb-5">N°2 — How to order</p>
         <h2 className="max-w-3xl font-display text-5xl font-bold leading-[1.02] sm:text-7xl">
-          No carts. No checkouts. <em className="text-mango">A phone call.</em>
+          No carts. No checkouts. <em className="text-mango">Just a text.</em>
         </h2>
 
         <div className="mt-16">
@@ -294,7 +294,7 @@ function OrderRitual() {
       <div className="relative mt-24">
         <div className="pointer-events-none absolute inset-0 flex items-center" aria-hidden="true">
           <ScrollVelocity
-            texts={['CALL TO ORDER ✦ CALL TO ORDER ✦ ']}
+            texts={['TEXT TO ORDER ✦ TEXT TO ORDER ✦ ']}
             velocity={25}
             className="pr-3 font-display text-6xl font-black text-masa/[0.06] sm:text-8xl"
             numCopies={6}
