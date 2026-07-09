@@ -15,7 +15,7 @@ export default function CallButton({
       <a
         href={PHONE_TEL}
         aria-label={`${label} at ${PHONE_DISPLAY}`}
-        className={`group relative isolate inline-flex items-center gap-3 overflow-hidden rounded-full bg-sunset py-4 pr-6 pl-5 text-espresso shadow-[0_10px_30px_-8px] shadow-sunset/50 transition-shadow duration-500 hover:shadow-[0_16px_40px_-8px] hover:shadow-sunset/60 ${className}`}
+        className={`group relative isolate inline-flex items-center gap-3 overflow-hidden rounded-full bg-sunset py-4 pr-6 pl-5 text-espresso ${className}`}
       >
         {/* Fill sweep */}
         <span className="absolute inset-0 -z-10 translate-y-full bg-mango transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:translate-y-0" />
