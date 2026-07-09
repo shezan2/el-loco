@@ -10,6 +10,7 @@ import CountUp from '../components/reactbits/CountUp'
 import Magnet from '../components/reactbits/Magnet'
 import AnimatedContent from '../components/reactbits/AnimatedContent'
 import SplitLine from '../components/SplitLine'
+import CallButton from '../components/CallButton'
 import { IntroContext } from '../components/introContext'
 import { FLAVOR_WORDS, PHONE_DISPLAY, PHONE_TEL, PRODUCTS, CATEGORIES } from '../data/products'
 
@@ -66,12 +67,7 @@ function Hero() {
         </motion.p>
 
         <motion.div className="mt-9 flex flex-wrap items-center gap-x-8 gap-y-4" {...fade(0.5)}>
-          <a
-            href={PHONE_TEL}
-            className="block rounded-[2px] bg-sunset px-8 py-4 text-sm font-semibold tracking-wide text-espresso transition-colors duration-300 hover:bg-mango"
-          >
-            Call to order — {PHONE_DISPLAY}
-          </a>
+          <CallButton />
           <Link
             to="/products"
             className="link-line text-sm font-medium tracking-wide text-masa/80 hover:text-masa"
